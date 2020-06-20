@@ -1,0 +1,12 @@
+steps:
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['run',
+         '-eCOMMIT_SHA=$COMMIT_SHA',
+         '-eREPO_NAME=$REPO_NAME',
+         '-eBRANCH_NAME=$BRANCH_NAME',
+         '-eHEAD_BRANCH=$_HEAD_BRANCH',
+         '-eBASE_BRANCH=$_BASE_BRANCH',
+         '-ePR_NUMBER=$_PR_NUMBER',
+         '-eOAUTH_CLIENT_ID=$_OAUTH_CLIENT_ID',
+         '--rm',
+         'gcr.io/google.com/datcom-data/importer-image']

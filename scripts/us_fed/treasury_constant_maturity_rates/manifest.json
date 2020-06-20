@@ -1,0 +1,9 @@
+{
+    "import_name": "us_treasury_constant_maturity_rates",
+    "provenance_url": "https://www.federalreserve.gov/releases/h15/",
+    "provenance_description": "U.S. Federal Reserve Treasury Nominal and Inflation-Indexed Constant Maturity Series",
+    "template_mcf": "treasury_constant_maturity_rates.tmcf",
+    "statvar_mcf": "treasury_constant_maturity_rates.mcf",
+    "generation_code": "generate_csv.py",
+    "data_file": "treasury_constant_maturity_rates.csv"
+}
