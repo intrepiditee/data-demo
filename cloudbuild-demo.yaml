@@ -1,5 +1,7 @@
 steps:
 - name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'import-publisher-temp-image', '.']
+- name: 'gcr.io/cloud-builders/docker'
   args: ['run',
          '-eCOMMIT_SHA=$COMMIT_SHA',
          '-eREPO_NAME=$REPO_NAME',
@@ -8,5 +10,6 @@ steps:
          '-eBASE_BRANCH=$_BASE_BRANCH',
          '-ePR_NUMBER=$_PR_NUMBER',
          '-eOAUTH_CLIENT_ID=$_OAUTH_CLIENT_ID',
+         '-eBUCKET_NAME=$_BUCKET_NAME',
          '--rm',
-         'gcr.io/google.com/datcom-data/importer-image']
+         'import-publisher-temp-image']
