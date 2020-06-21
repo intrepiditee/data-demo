@@ -1,4 +1,4 @@
 steps:
 - name: 'gcr.io/cloud-builders/gcloud'
-  args: ['pubsub', 'topics', 'publish', '$_IMPORT_DEV_TOPIC',
+  args: ['pubsub', 'topics', 'publish', '$_IMPORT_PUBLISH_TOPIC',
          '--attribute=[COMMIT_SHA=$COMMIT_SHA, REPO_NAME=$REPO_NAME, REPO_NAME=$REPO_NAME, BRANCH_NAME=$BRANCH_NAME, HEAD_BRANCH=$_HEAD_BRANCH, BASE_BRANCH=$_BASE_BRANCH, PR_NUMBER=$_PR_NUMBER]']
