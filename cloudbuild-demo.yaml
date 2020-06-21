@@ -3,13 +3,22 @@ steps:
   args: ['build', '-t', 'import-publisher-temp-image', '.']
 - name: 'gcr.io/cloud-builders/docker'
   args: ['run',
-         '-eCOMMIT_SHA=$COMMIT_SHA',
-         '-eREPO_NAME=$REPO_NAME',
-         '-eBRANCH_NAME=$BRANCH_NAME',
-         '-eHEAD_BRANCH=$_HEAD_BRANCH',
-         '-eBASE_BRANCH=$_BASE_BRANCH',
-         '-ePR_NUMBER=$_PR_NUMBER',
-         '-eOAUTH_CLIENT_ID=$_OAUTH_CLIENT_ID',
-         '-eBUCKET_NAME=$_BUCKET_NAME',
-         '--rm',
+         '-d',
+         '--name import-publisher-container',
          'import-publisher-temp-image']
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['cp',
+         'import-publisher-container:/import-publisher',
+         'import-publisher']
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['stop',
+         'import-publisher-container']
+- name: 'python:3-slim'
+  args: ['pip3',
+         'install',
+         '--no-cache-dir',
+         '-r',
+         'import-publisher/requirements.txt']
+- name: 'python:3-slim'
+  args: ['python3',
+         'import-publisher/main.py']
