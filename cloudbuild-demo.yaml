@@ -20,4 +20,4 @@ steps:
 - name: 'python:3-slim'
   args: ['/bin/bash',
          '-c',
-         '"pip3 install -r import-publisher/requirements.txt; python3 import-publisher/main.py"']
+         '"pip3 install -r /import-publisher/requirements.txt; python3 /import-publisher/main.py"']
