@@ -2,7 +2,7 @@ steps:
 - name: 'gcr.io/cloud-builders/docker'
   args: ['run',
          '-d',
-         '--name import-publisher-container',
+         '--name=import-publisher-container',
          'gcr.io/google.com/datcom-data/import-publisher-image']
 - name: 'gcr.io/cloud-builders/docker'
   args: ['cp',
