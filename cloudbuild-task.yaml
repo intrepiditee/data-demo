@@ -1,0 +1,3 @@
+steps:
+- name: 'gcr.io/cloud-builders/go'
+  args: ['get', 'run', 'create_task.go']
