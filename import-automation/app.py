@@ -1,4 +1,5 @@
 import json
+import sys
 
 from google.cloud import tasks_v2
 
@@ -8,8 +9,8 @@ def create_task(task_body):
     client = tasks_v2.CloudTasksClient()
     location_id = 'us-central1'
     queue_name = 'test-queue'
-    parent = client.queue_path(
-        'google.com:datcom-data', location_id, queue_name)
+    project_id = 'google.com:datcom-data'
+    parent = client.queue_path(project_id, location_id, queue_name)
 
     body = json.dumps(task_body)
     task = {
@@ -24,4 +25,12 @@ def create_task(task_body):
 
 
 if __name__ == '__main__':
-    create_task({'test': 'test'})
+    args = [
+        'COMMIT_SHA', 'REPO_NAME', 'BRANCH_NAME',
+        'HEAD_BRANCH', 'BASE_BRANCH', 'PR_NUMBER'
+    ]
+    task_body = {}
+    for i, arg in enumerate(args):
+        task_body[arg] = sys.argv[i + 1]
+    print(task_body)
+    create_task(task_body)
