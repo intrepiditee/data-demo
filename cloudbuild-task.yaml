@@ -1,4 +1,4 @@
 steps:
-- name: 'gcr.io/cloud-builders/gcloud'
+- name: 'python3'
   entrypoint: 'bash'
   args: ['task.sh']
