@@ -1,5 +1,5 @@
 steps:
 - name: 'bash'
-  args: ['export', 'GOPATH=gopath']
+  args: ['-c', 'export GOPATH=gopath']
 - name: 'gcr.io/cloud-builders/go'
   args: ['run', 'create_task.go']
