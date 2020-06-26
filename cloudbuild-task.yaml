@@ -1,5 +1,5 @@
 steps:
 - name: 'gcr.io/cloud-builders/go'
-  args: ['mod', 'init', 'cloudbuild']
+  args: ['mod', 'init']
 - name: 'gcr.io/cloud-builders/go'
-  args: ['run', 'cloudbuild/src/create_task.go']
+  args: ['run', 'create_task.go']
