@@ -1,4 +1,4 @@
 steps:
-- name: 'python3'
+- name: 'python'
   entrypoint: 'bash'
   args: ['task.sh']

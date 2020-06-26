@@ -7,7 +7,7 @@ from google.cloud import tasks_v2
 def create_task(task_body):
     client = tasks_v2.CloudTasksClient()
     location_id = 'us-central1'
-    queue_name = '	test-queue'
+    queue_name = 'test-queue'
     parent = client.queue_path(
         'google.com:datcom-data', location_id, queue_name)
 
