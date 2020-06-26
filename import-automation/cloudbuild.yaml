@@ -1,4 +1,4 @@
 steps:
-- name: 'gcr.io/cloud-builders/docker'
+- name: 'gcr.io/cloud-builders/git'
   entrypoint: 'bash'
   args: ['import-automation/task.sh', '$COMMIT_SHA', '$REPO_NAME', '$BRANCH_NAME', '$_HEAD_BRANCH', '$_BASE_BRANCH', '$_PR_NUMBER']
