@@ -4,7 +4,6 @@ import sys
 from google.cloud import tasks_v2
 
 
-
 def create_task(task_body):
     client = tasks_v2.CloudTasksClient()
     location_id = 'us-central1'
