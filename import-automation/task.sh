@@ -1,3 +1,3 @@
-pip install -r requirements-task.txt
+pip install -r requirements.txt
 
 python3 app.py $@
