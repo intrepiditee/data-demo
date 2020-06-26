@@ -1,3 +1,3 @@
-pip install -r requirements.txt
+pip install -r import-automation/requirements.txt
 
-python3 app.py $@
+python3 import-automation/app.py $@
