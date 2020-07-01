@@ -1,6 +1,7 @@
 import json
 import sys
 
+import os
 from google.cloud import tasks_v2
 
 
@@ -31,5 +32,5 @@ if __name__ == '__main__':
     task_body = {}
     for i, arg in enumerate(args):
         task_body[arg] = sys.argv[i + 1]
-    print(task_body)
+        print(os.environ[arg])
     create_task(task_body)
