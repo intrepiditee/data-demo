@@ -1,35 +1,50 @@
 {
-    "target": ['cpi_u', 'cpi_w', 'c_cpi_u'],
-    "import_specs": [
+    "import_specifications": [
         {
             "import_name": "cpi_u",
+            "curator_emails": [
+                "foo@bar.com",
+                "bar@foo.com"
+            ],
             "provenance_url": "https://bls.gov/cpi",
             "provenance_description": "U.S. Bureau of Labor Statistics Consumer Price Index",
-            "template_mcf": "cpi_u.tmcf",
-            "node_mcf": "cpi_u.mcf",
-            "generation_code": "generate_csv_and_mcf.py",
-            "data_file": "cpi_u.csv",
+            "start_date": "2000-10-10",
+            "data_download_script": "../foo/bar/download.py",
+            "data_cleaning_script": "../foo/bar/process.py",
+            "import_inputs": [
+                {
+                    "template_mcf": "cpi_u_1.tmcf",
+                    "cleaned_csv": "cpi_u_1.csv"
+                }
+            ],
             "cron_schedule": "* * * * *"
         },
         {
             "import_name": "cpi_w",
+            "curator_emails": [
+                "who@me.com"
+            ],
             "provenance_url": "https://bls.gov/cpi",
             "provenance_description": "U.S. Bureau of Labor Statistics Consumer Price Index",
-            "template_mcf": "cpi_w.tmcf",
-            "node_mcf": "cpi_w.mcf",
-            "generation_code": "generate_csv_and_mcf.py",
-            "data_file": "cpi_w.csv",
-            "cron_schedule": "* * * * *"
-        },
-        {
-            "import_name": "c_cpi_u",
-            "provenance_url": "https://bls.gov/cpi",
-            "provenance_description": "U.S. Bureau of Labor Statistics Consumer Price Index",
-            "template_mcf": "c_cpi_u.tmcf",
-            "node_mcf": "c_cpi_u.mcf",
-            "generation_code": "generate_csv_and_mcf.py",
-            "data_file": "c_cpi_u.csv",
-            "cron_schedule": "* * * * *"
+            "start_date": "2000-10-10",
+            "end_date": "2013-10-10",
+            "data_download_url": [
+                "https://google.com/cpi_w_1.csv",
+                "https://google.com/cpi_w_2.csv"
+            ],
+            "import_inputs": [
+                {
+                    "template_mcf": "cpi_w_1.tmcf",
+                    "cleaned_csv": "cpi_w_1.csv"
+                },
+                {
+                    "template_mcf": "cpi_w_2.tmcf",
+                    "cleaned_csv": "cpi_w_2.csv"
+                },
+                {
+                    "node_mcf": "cpi_w_nodes.mcf"
+                }
+            ]
         }
     ]
 }
