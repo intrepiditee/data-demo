@@ -75,10 +75,10 @@ def create_task(task_body, project_id, location_id, queue_name,
     parent = client.queue_path(project_id, location_id, queue_name)
     body = json.dumps(task_body)
     task = {
-        'app_engine_routing': {
-            'service': service
-        },
         'app_engine_http_request': {
+            'app_engine_routing': {
+                'service': service
+            },
             'http_method': 'POST',
             'relative_uri': endpoint,
             'body': body.encode(),
