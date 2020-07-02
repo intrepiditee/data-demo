@@ -1,7 +1,7 @@
 steps:
 - name: 'gcr.io/cloud-builders/gcloud'
   entrypoint: 'bash'
-  args: ['import-automation/task.sh']
+  args: ['import-automation/cloudbuild/task.sh']
   env:
   - 'COMMIT_SHA=$COMMIT_SHA'
   - 'REPO_NAME=$REPO_NAME'
