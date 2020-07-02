@@ -85,9 +85,6 @@ def create_task(task_body, project_id, location_id, queue_name,
             'headers': {
                 'Content-Type': 'application/json'
             }
-        },
-        'retry_config': {
-            'max_attempts': max_attempts,
         }
     }
     client.create_task(parent, task)
