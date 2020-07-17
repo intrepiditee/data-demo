@@ -22,7 +22,13 @@ import json
 
 from google.cloud import tasks_v2
 
+<<<<<<< HEAD
 
+=======
+# These fields must present as environmental variables.
+# PR_NUMBER must be an integer.
+# Otherwise, the script will fail.
+>>>>>>> 989f011bd742010af3b6a38113d59d6ec3eb244e
 TASK_BODY_FIELDS = [
     'COMMIT_SHA',
     'REPO_NAME',
@@ -70,6 +76,13 @@ def create_task(task_body, project_id, location_id, queue_name,
         queue_name: Name of the task queue.
         service: Name of the App Engine service that will handle the task.
         endpoint: Relative URL of the App Engine task handler endpoint.
+<<<<<<< HEAD
+=======
+
+    Returns:
+        The created task as a dict.
+        The CloudTasksClient used to create the task.
+>>>>>>> 989f011bd742010af3b6a38113d59d6ec3eb244e
     """
     client = tasks_v2.CloudTasksClient()
     parent = client.queue_path(project_id, location_id, queue_name)
@@ -88,6 +101,10 @@ def create_task(task_body, project_id, location_id, queue_name,
         }
     }
     client.create_task(parent, task)
+<<<<<<< HEAD
+=======
+    return task, client
+>>>>>>> 989f011bd742010af3b6a38113d59d6ec3eb244e
 
 
 def main():
@@ -95,9 +112,17 @@ def main():
     Creates a Cloud Tasks task that ships information about a GitHub commit
     to the executor.
     """
+<<<<<<< HEAD
     task_body = create_body()
     create_task(
         task_body=task_body,
+=======
+    # TASK_PROJECT_ID, TASK_LOCATION_ID, TASK_QUEUE_NAME, HANDLER_SERVICE, and
+    # HANDLER_URI must be present as environmental variables.
+    # Otherwise, the script will fail.
+    create_task(
+        task_body=create_body(),
+>>>>>>> 989f011bd742010af3b6a38113d59d6ec3eb244e
         project_id=os.environ['TASK_PROJECT_ID'],
         location_id=os.environ['TASK_LOCATION_ID'],
         queue_name=os.environ['TASK_QUEUE_NAME'],
