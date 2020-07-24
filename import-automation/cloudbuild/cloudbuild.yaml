@@ -25,5 +25,4 @@ steps:
                                       "$_GITHUB_REPO_NAME",
                                    "github_repo_owner_username":
                                       "$_GITHUB_REPO_OWNER_USERNAME"}}']
-  
->>>>>>> e14f343b02c19899ffd03f175c9c50c3fff0aa40
+
