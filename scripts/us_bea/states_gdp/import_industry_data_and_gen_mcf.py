@@ -20,17 +20,14 @@ nodes for the data schema.
 
     python3 import_industry_data_and_gen_mcf.py
 """
-from urllib.request import urlopen
-import io
-import zipfile
-import csv
 import re
 from absl import app
 import pandas as pd
 import import_data
 
 # Suppress annoying pandas DF copy warnings.
-pd.options.mode.chained_assignment = None # default='warn'
+pd.options.mode.chained_assignment = None  # default='warn'
+
 
 class StateGDPIndustryDataLoader(import_data.StateGDPDataLoader):
     """Pulls GDP industry-level state data from BEA.
@@ -40,7 +37,7 @@ class StateGDPIndustryDataLoader(import_data.StateGDPDataLoader):
     """
     _STATE_QUARTERLY_INDUSTRY_GDP_FILE = "SQGDP2__ALL_AREAS_2005_2020.csv"
 
-    def download_data(self):
+    def download_data(self, zip_link=None, file=None):
         """Downloads ZIP file, extracts the desired CSV, and puts it into a data
         frame. Stores that data frame in the instance raw_df variable.
         """
@@ -68,24 +65,26 @@ class StateGDPIndustryDataLoader(import_data.StateGDPDataLoader):
         df = self.raw_df.copy()
 
         # Filters out columns that are not US states (e.g. New England).
-        df = df[df['GeoName'].isin(self._US_STATES)]
+        df = df[df['GeoName'].isin(self.US_STATES)]
 
         # Gets columns that represent quarters, e.g. 2015:Q2, by matching
         # against a regular expression.
         all_quarters = [q for q in df.columns if re.match(r"\d\d\d\d:Q\d", q)]
 
         # Convert table from wide to long format.
-        df = pd.melt(df, id_vars=['GeoFIPS', 'IndustryClassification'],
+        df = pd.melt(df,
+                     id_vars=['GeoFIPS', 'IndustryClassification'],
                      value_vars=all_quarters,
                      var_name='Quarter')
 
-        df['Quarter'] = df['Quarter'].apply(self._date_to_obs_date)
-        df['GeoId'] = df['GeoFIPS'].apply(self._convert_geoid)
+        df['Quarter'] = df['Quarter'].apply(self.date_to_obs_date)
+        df['GeoId'] = df['GeoFIPS'].apply(self.convert_geoid)
 
         df = df[df['IndustryClassification'] != "..."]
 
-        df['NAICS'] = df['IndustryClassification'].apply(self._convert_industry_class)
-        df['value'] = df['value'].apply(self._value_converter)
+        df['NAICS'] = df['IndustryClassification'].apply(
+            self.convert_industry_class)
+        df['value'] = df['value'].apply(self.value_converter)
         df = df[df['value'] >= 0]
 
         # Convert from millions of current USD to current USD.
@@ -93,7 +92,7 @@ class StateGDPIndustryDataLoader(import_data.StateGDPDataLoader):
         self.clean_df = df.drop(["GeoFIPS", "IndustryClassification"], axis=1)
 
     @staticmethod
-    def _value_converter(val):
+    def value_converter(val):
         """Converts value to float type, and filters out missing values. Missing
         values are marked by a letter enclosed in parentheses, e.g., "(D)".
         """
@@ -103,7 +102,7 @@ class StateGDPIndustryDataLoader(import_data.StateGDPDataLoader):
             return -1
 
     @staticmethod
-    def _convert_industry_class(naics_code):
+    def convert_industry_class(naics_code):
         """Filters out aggregate NAICS codes and assigns them their Data
         Commons codes.
         """
@@ -138,7 +137,9 @@ class StateGDPIndustryDataLoader(import_data.StateGDPDataLoader):
                 code = code.replace("&", "&NAICS/")
                 mcf_f.write(mcf_temp.format(title=code_title, naics=code))
 
+
 def main(_):
+    """Runs the program."""
     loader = StateGDPIndustryDataLoader()
     loader.download_data()
     loader.process_data()

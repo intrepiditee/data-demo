@@ -11,7 +11,6 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
 """
 Database service for storing system runs using Google Cloud Datastore for
 storage.
@@ -29,11 +28,11 @@ class SystemRunDatabase(base_database.BaseDatabase):
 
     See BaseDatabase.
     """
-    kind = 'system-run'
+    _KIND = 'system-run'
 
     def __init__(self, client=None):
         """Constructs an SystemRunDatabase.
 
         See BaseDatabase.
         """
-        super().__init__(SystemRunDatabase.kind, client, _MODEL.run_id)
+        super().__init__(SystemRunDatabase._KIND, client, _MODEL.run_id)
