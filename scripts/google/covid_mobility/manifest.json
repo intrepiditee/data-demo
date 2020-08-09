@@ -1,20 +1,21 @@
 {
     "import_specifications": [
         {
-            "import_name": "data",
+            "import_name": "covid-19-community-mobility",
             "curator_emails": [
                 "edumorales@google.com"
             ],
             "provenance_url": "https://www.google.com/covid19/mobility",
+            "provenance_description": "COVID-19 Community Mobility Reports show movement trends by region, across different categories of places in response to COVID-19.",
             "scripts": [
+                "covidmobility_test.py",
                 "covidmobility.py"
             ],
             "import_inputs": [
                 {
                     "node_mcf": "covid_mobility_output.mcf"
                 }
-            ],
-            "cron_schedule": "* * * * *"
+            ]
         }
     ]
 }
